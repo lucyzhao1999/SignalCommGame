@@ -76,6 +76,15 @@ class RunGame:
 
             trueGoalLoc = self.targetsCoord[self.trueGoalIndex]
 
+            signalerFinalSelection = (0,0)
+            receiverFinalSelection = (0,0)
+
+            signalerStartTime = 0
+            receiverStartTime = 0
+
+            signalerChosenBox = (0,0)
+            receiverChosenBox = (0,0)
+
             while True:
                 fpsClock.tick(60)
 
@@ -84,8 +93,8 @@ class RunGame:
 
                 if currentAgent is 'signaler':
 
-
-                    if signalerFrame is 0: signalerStartTime = pygame.time.get_ticks() # time when the frame first shown
+                    if signalerFrame is 0:
+                        signalerStartTime = pygame.time.get_ticks() # time when the frame first shown
 
                     signalerActionOptions = self.targetsCoord + self.signalsCoord
                     signalerChoicesX = [self.edgeSize + (xCoord - 1) * gridSize for xCoord, yCoord in signalerActionOptions]
@@ -113,9 +122,10 @@ class RunGame:
 
                             if event.type == pygame.MOUSEBUTTONDOWN and signalerClickedReturn and signalerSelected:
                                 signalerResponseTime = pygame.time.get_ticks() - signalerStartTime
+                                signalerFinalSelection = signalerChosenBox
 
                                 if signalerChosenBox is trueGoalLoc:
-                                    print(signalerResponseTime)
+                                    print('signalerResponseTime ' + str(signalerResponseTime))
                                     pygame.quit()
                                     sys.exit()
                                 else:
@@ -165,8 +175,11 @@ class RunGame:
 
                             if event.type == pygame.MOUSEBUTTONDOWN and receiverClickedReturn and receiverSelected:
                                 receiverResponseTime = pygame.time.get_ticks() - receiverStartTime
-                                print(signalerResponseTime)
-                                print(receiverResponseTime)
+                                receiverFinalSelection = receiverChosenBox
+                                print('Signaler Selection: ' + str(signalerFinalSelection))
+                                print('Receiver Selection: ' + str(receiverFinalSelection))
+                                print('signalerResponseTime ' + str(signalerResponseTime))
+                                print('receiverResponseTime ' + str(receiverResponseTime))
                                 pygame.quit()
                                 sys.exit()
 
