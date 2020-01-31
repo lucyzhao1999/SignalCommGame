@@ -16,7 +16,7 @@ class RunGame:
         self.edgeSize = edgeSize
 
         self.trueGoalIndex = trueGoalIndex  # 0 or 1 or 2
-        self.agentsCoord = agentsCoord  # [(5, 11), (5,1)] , signaler vs receiver
+        self.agentsCoord = agentsCoord  # [(5, 11), (5,1)] , signaler, receiver
 
         self.targetsCoord = targetsCoord  # [(1, 1), (11, 1), (5, 5)]
         self.targetsColor = targetsColor
@@ -186,11 +186,15 @@ class RunGame:
                     if receiverSelected:
                         game = self.drawScreen(game, currentAgent, self.agentsCoord, self.signalsColor, self.signalsShape,
                                                self.signalsCoord, self.targetsColor, self.targetsShape, self.targetsCoord)
-                        indicatingBoxColor = (0, 0, 255)
-                        pygame.draw.rect(game, indicatingBoxColor,
+                        signalerIndicatingBoxColor = (255, 0, 0)
+                        receiverIndicatingBoxColor = (0, 0, 255)
+                        pygame.draw.rect(game, signalerIndicatingBoxColor, (signalerSelectedBoxX + 3, signalerSelectedBoxY + 3, gridSize - 6, gridSize - 6),4)
+                        pygame.draw.rect(game, receiverIndicatingBoxColor,
                                          (receiverSelectedBoxX + 3, receiverSelectedBoxY + 3, gridSize - 6, gridSize - 6),4)  # line width
+
                         receiverCost = calculateCost(receiverCoord, receiverChosenBox)
                         drawCostBox(game, receiverCost)
+
 
                     receiverFrame = receiverFrame + 1
 
