@@ -2,8 +2,8 @@ import pygame
 
 from draw import DisplayGame, DrawGrids, DrawItems, DrawAgents, DrawCostBox,\
     DrawInitialScreen, DrawScreen, DrawTextbox, DisplayText
-from calculate import calculateCost, checkEffectiveClick, TransformCoord, CheckClickedReturn
-from experiment import RunGame
+from calculate import calculateCost, TransformCoord
+from experiment import checkEffectiveClick, CheckClickedReturn, RunGame
 
 
 BLACK = (0, 0, 0)
@@ -54,8 +54,8 @@ drawGrids = DrawGrids(game, numberOfGrids, gridSize, edgeSize, lineColor, lineWi
 
 transformCoord = TransformCoord(gridSize, edgeSize)
 
-blueFigure = pygame.image.load("blueFigure.png")
-redFigure = pygame.image.load("redFigure.png")
+blueFigure = pygame.image.load('figures/blueFigure.png')
+redFigure = pygame.image.load('figures/redFigure.png')
 drawAgents = DrawAgents(game, transformCoord, redFigure, blueFigure)
 
 signalsSize = gridSize - lineWidth * 2
@@ -88,8 +88,8 @@ returnTextColor = WHITE
 drawReturnBox = DrawTextbox(game, displayText, returnText, returnBoxPos, returnBoxSize, returnBoxColor, returnBoxFontName,
                             returnBoxFontSize, returnTextColor)
 
-blueMouse = pygame.image.load("BlueMouse.png").convert_alpha()
-redMouse = pygame.image.load("RedMouse.png").convert_alpha()
+blueMouse = pygame.image.load('figures/BlueMouse.png').convert_alpha()
+redMouse = pygame.image.load('figures/RedMouse.png').convert_alpha()
 drawScreen = DrawScreen(game, drawGrids, drawAgents, drawSignal, drawTarget, drawCostBox, drawReturnBox,
                         redMouse, blueMouse, backgroundColor)
 
