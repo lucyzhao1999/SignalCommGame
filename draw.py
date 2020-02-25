@@ -24,29 +24,39 @@ class DisplayGame:
 
 
 class DrawGrids:
-    def __init__(self, game, numberOfGrids, gridSize, edgeSize, lineColor, lineWidth):
+    def __init__(self, game, numberOfGrids, gridSize, edgeSize, lineColor, lineWidth, shadeColor, shadeHeight):
         self.game = game
         self.numberOfGrids = numberOfGrids
         self.gridSize = gridSize
         self.edgeSize = edgeSize
         self.lineColor = lineColor
         self.lineWidth = lineWidth
+        self.shadeColor = shadeColor
+        self.shadeHeight = shadeHeight
 
-    def __call__(self):
+    def __call__(self, fillGray):
         for i in range(self.numberOfGrids + 1):  # draw grids
             pygame.draw.line(self.game, self.lineColor, (self.edgeSize, self.edgeSize + i * self.gridSize),
                              (self.edgeSize + self.numberOfGrids * self.gridSize, self.edgeSize + i * self.gridSize),self.lineWidth)  # horizontalLine
             pygame.draw.line(self.game, self.lineColor, (self.edgeSize + i * self.gridSize, self.edgeSize),
                              (self.edgeSize + i * self.gridSize, self.edgeSize + self.numberOfGrids * self.gridSize), self.lineWidth)  # verticalLine
-         
+
+        if fillGray:
+            fillSquare = pygame.Surface((self.gridSize * self.numberOfGrids, self.gridSize * self.shadeHeight), pygame.SRCALPHA)
+            pygame.draw.rect(fillSquare, self.shadeColor, fillSquare.get_rect())
+            fillUpperLeftCorner = (self.edgeSize, self.edgeSize+ self.gridSize* self.numberOfGrids - self.gridSize * self.shadeHeight)
+            self.game.blit(fillSquare, fillUpperLeftCorner)
+
         return self.game
 
 
 class DrawItems:
-    def __init__(self, game, transformCoord, itemsSize):
+    def __init__(self, game, transformCoord, itemsSize, lineWidth = 2, lineColor = BLACK):
         self.game = game
         self.transformCoord = transformCoord
         self.itemsSize = itemsSize
+        self.lineWidth = lineWidth
+        self.lineColor = lineColor
 
     def __call__(self, colorList, shapeList, coordList):
         numOfItems = len(colorList)
@@ -60,13 +70,22 @@ class DrawItems:
 
             if itemShape == 'circle':
                 pygame.draw.circle(self.game, itemColor, itemPosCoord, radius)
+                pygame.draw.circle(self.game, self.lineColor, itemPosCoord, radius, self.lineWidth)
 
             if itemShape == 'square':
                 upperLeftX = itemPosCoord[0] - radius
                 upperLeftY = itemPosCoord[1] - radius
                 pygame.draw.rect(self.game, itemColor,
                                  pygame.Rect(upperLeftX, upperLeftY, self.itemsSize, self.itemsSize))
-         
+
+            if itemShape == 'triangle':
+                lowerLeftCoord = (itemPosCoord[0] - radius, itemPosCoord[1] + radius)
+                lowerRightCoord = (itemPosCoord[0] + radius, itemPosCoord[1] + radius)
+                upperCornerCoord = (itemPosCoord[0], itemPosCoord[1] - radius)
+                if itemColor is not None:
+                    pygame.draw.polygon(self.game, itemColor, [lowerLeftCoord, lowerRightCoord, upperCornerCoord])
+                pygame.draw.polygon(self.game, self.lineColor, [lowerLeftCoord, lowerRightCoord, upperCornerCoord], self.lineWidth)
+
         return self.game
 
 
@@ -88,12 +107,13 @@ class DrawAgents:
 
 
 class DrawCostBox:
-    def __init__(self, game, displayText, costText, costBoxPos, costBoxSize,
+    def __init__(self, game, displayText, costText, costTextCenter, costBoxPos, costBoxSize,
                  lineColor, lineWidth, fontName, fontSize,
                  costTextColor, costNumberCenterPos):
         self.game = game
         self.displayText = displayText
         self.costText = costText
+        self.costTextCenter = costTextCenter
         self.costBoxPos = costBoxPos
         self.costBoxSize = costBoxSize
         self.lineColor = lineColor
@@ -106,17 +126,47 @@ class DrawCostBox:
     def __call__(self, cost = None):
         costBoxX, costBoxY = self.costBoxPos
         costBoxWidth, costBoxHeight = self.costBoxSize
-        newBoxLocSize = (costBoxX + self.lineWidth, costBoxY + self.lineWidth,
-                         costBoxWidth - self.lineWidth * 2,costBoxHeight - self.lineWidth * 2)
-        pygame.draw.rect(self.game, WHITE, newBoxLocSize) # cover old info by a new white box
 
+        coverBoxPos = (costBoxX + self.lineWidth, costBoxY + self.lineWidth)
+        coverBoxSize = (costBoxWidth - self.lineWidth * 2,costBoxHeight - self.lineWidth * 2)
+
+        pygame.draw.rect(self.game, WHITE, coverBoxPos+ coverBoxSize) # cover old info by a new white box
         pygame.draw.rect(self.game, self.lineColor, self.costBoxPos + self.costBoxSize, self.lineWidth)
-        textCenter = (costBoxX + costBoxWidth/2, costBoxY + costBoxHeight/3)
-        self.displayText(self.costText, self.fontName, self.fontSize, self.costTextColor, textCenter)
+
+        self.displayText(self.costText, self.fontName, self.fontSize, self.costTextColor, self.costTextCenter)
 
         if cost is not None:
             self.displayText(str(cost), self.fontName, self.fontSize, self.costTextColor, self.costNumberCenterPos)
          
+        return self.game
+
+
+class DisplayText:
+    def __init__(self, game, numCharPerLine, spacingFontSizeRatio):
+        self.game = game
+        self.numCharPerLine = numCharPerLine
+        self.spacingFontSizeRatio = spacingFontSizeRatio
+
+    def __call__(self, text, fontName, fontSize, fontColor, firstLineCenter, underline = False):
+        numLines = int(len(text) / self.numCharPerLine) + 1
+        spacing = fontSize * self.spacingFontSizeRatio
+        lineSeq = [text[currentLine * self.numCharPerLine: (currentLine + 1) * self.numCharPerLine] for currentLine in
+                   range(numLines)]
+
+        font = pygame.font.Font(fontName, fontSize)
+        if underline:
+            font.set_underline(True)
+
+        antialias = True # prevent from being jaggy
+        lineSurfaces = [font.render(line, antialias, fontColor) for line in lineSeq]
+
+        firstLineCenterX, firstLineCenterY = firstLineCenter
+        for lineNumber in range(len(lineSurfaces)):
+            lineSurface = lineSurfaces[lineNumber]
+            lineCenter = (firstLineCenterX, firstLineCenterY + spacing * lineNumber)
+            lineRect = lineSurface.get_rect(center=lineCenter)
+            self.game.blit(lineSurface, lineRect)
+
         return self.game
 
 
@@ -145,6 +195,22 @@ class DrawTextbox:
         return self.game
 
 
+class DrawInitialScreen:
+    def __init__(self, game, backgroundColor, drawInstructionText, drawContinueButton):
+        self.game = game
+        self.backgroundColor = backgroundColor
+        self.drawInstructionText = drawInstructionText
+        self.drawContinueButton = drawContinueButton
+
+    def __call__(self):
+        self.game.fill(self.backgroundColor)
+        self.drawInstructionText()
+        self.drawContinueButton(underline = True)
+        pygame.display.init()
+
+        return self.game
+
+
 class DrawScreen:
     def __init__(self, game, drawGrids, drawAgents, drawSignal, drawTarget, drawCostBox,drawReturnBox,
                  redMouse, blueMouse, backgroundColor):
@@ -163,62 +229,16 @@ class DrawScreen:
     def __call__(self, currentAgent, agentsCoord, signalsColor, signalsShape, signalsCoord,
                  targetsColor, targetsShape, targetsCoord):
         self.game.fill(self.backgroundColor)
-        self.drawGrids()
+        self.drawGrids(fillGray = False if currentAgent is 'signaler' else True)
         self.drawAgents(agentsCoord)
         self.drawSignal(signalsColor, signalsShape, signalsCoord)
         self.drawTarget(targetsColor, targetsShape, targetsCoord)
-
         self.drawCostBox()
         self.drawReturnBox(underline = True)
 
         # set mouse
         self.game.blit(self.redMouse if currentAgent is "signaler" else self.blueMouse,
                   (pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1]))
-
-        return self.game
-
-
-class DrawInitialScreen:
-    def __init__(self, game, backgroundColor, drawInstructionText, drawContinueButton):
-        self.game = game
-        self.backgroundColor = backgroundColor
-        self.drawInstructionText = drawInstructionText
-        self.drawContinueButton = drawContinueButton
-
-    def __call__(self):
-        self.game.fill(self.backgroundColor)
-        self.drawInstructionText()
-        self.drawContinueButton(underline = True)
-        pygame.display.init()
-
-        return self.game
-
-
-class DisplayText:
-    def __init__(self, game, numCharPerLine, spacingFontSizeRatio):
-        self.game = game
-        self.numCharPerLine = numCharPerLine
-        self.spacingFontSizeRatio = spacingFontSizeRatio
-
-    def __call__(self, text, fontName, fontSize, fontColor, firstLineCenter, underline = False):
-        numLines = int(len(text) / self.numCharPerLine) + 1
-        spacing = fontSize* self.spacingFontSizeRatio
-
-        lineSeq = [text[currentLine * self.numCharPerLine: (currentLine + 1) * self.numCharPerLine] for currentLine in
-                   range(numLines)]
-        font = pygame.font.Font(fontName, fontSize)
-        if underline: font.set_underline(True)
-
-        antialias = True # prevent from being jaggy
-        lineSurfaces = [font.render(line, antialias, fontColor) for line in lineSeq]
-
-        firstLineCenterX, firstLineCenterY = firstLineCenter
-
-        for lineNumber in range(len(lineSurfaces)):
-            lineSurface = lineSurfaces[lineNumber]
-            lineCenter = (firstLineCenterX, firstLineCenterY + spacing * lineNumber)
-            lineRect = lineSurface.get_rect(center=lineCenter)
-            self.game.blit(lineSurface, lineRect)
 
         return self.game
 

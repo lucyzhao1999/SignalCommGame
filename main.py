@@ -8,28 +8,29 @@ from experiment import checkEffectiveClick, CheckClickedReturn, RunGame
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
-BLUE = (0, 0, 255)
+PURPLE = (255, 0, 255)
+GREEN = (0, 255, 0)
 
 screenWidth = 1100
 screenHeight = 700
-caption = "Comm Game"
+caption = "Signal Game"
 displayGame = DisplayGame(screenWidth, screenHeight, caption, fullScreen=False)
 game = displayGame()
 
 numCharPerLine = 30
 spacingFontSizeRatio = 3/2
 displayText = DisplayText(game, numCharPerLine, spacingFontSizeRatio)
-defaultFont = pygame.font.get_default_font()
 
 instructionText = 'Welcome to the Game! Please press ''CONTINUE'' to start! Welcome to the Game! Please press ''CONTINUE'' to start!'
 instructionBoxPos = (0, 0)
 instructionSize = (screenWidth, screenHeight/3*2)
-backgroundColor = WHITE
+textboxColor = WHITE
+defaultFont = pygame.font.get_default_font()
 initialScreenFontName = defaultFont
 initialScreenFontSize = 20
 instructionTextColor = BLACK
 drawInstructionText = DrawTextbox(game, displayText, instructionText, instructionBoxPos,
-                                  instructionSize, backgroundColor, initialScreenFontName,
+                                  instructionSize, textboxColor, initialScreenFontName,
                                   initialScreenFontSize, instructionTextColor)
 buttonText = 'CONTINUE'
 buttonLoc = (screenWidth/7*3, screenHeight/7*5)
@@ -42,23 +43,26 @@ drawContinueButton = DrawTextbox(game, displayText, buttonText, buttonLoc,
                                   buttonSize, buttonBoxColor, buttonFontName,
                                   buttonFontSize, buttonTextColor)
 
+backgroundColor = WHITE
 drawInitialScreen = DrawInitialScreen(game, backgroundColor, drawInstructionText, drawContinueButton)
-checkClickedInitialContinue = CheckClickedReturn(buttonLoc, buttonSize)
 
+# main display
 numberOfGrids = 11
 edgeSize = 20
 gridSize = (screenHeight - edgeSize * 2) / numberOfGrids  # 60
+transformCoord = TransformCoord(gridSize, edgeSize)
+
 lineColor = BLACK
 lineWidth = 3
-drawGrids = DrawGrids(game, numberOfGrids, gridSize, edgeSize, lineColor, lineWidth)
-
-transformCoord = TransformCoord(gridSize, edgeSize)
+shadeColor = (0, 0, 0, 50)
+shadeHeight = 5
+drawGrids = DrawGrids(game, numberOfGrids, gridSize, edgeSize, lineColor, lineWidth, shadeColor, shadeHeight)
 
 blueFigure = pygame.image.load('figures/blueFigure.png')
 redFigure = pygame.image.load('figures/redFigure.png')
 drawAgents = DrawAgents(game, transformCoord, redFigure, blueFigure)
 
-signalsSize = gridSize - lineWidth * 2
+signalsSize = 40
 drawSignal = DrawItems(game, transformCoord, signalsSize)
 targetsSize = 40
 drawTarget = DrawItems(game, transformCoord, targetsSize)
@@ -67,15 +71,16 @@ costText = 'The cost of this movement = '
 costBoxPosX = 700
 costBoxPosY = edgeSize
 costBoxPos = (costBoxPosX, costBoxPosY)
-
 costBoxWidth = 350
 costBoxHeight = 75
 costBoxSize = (costBoxWidth, costBoxHeight)
 costBoxFontName = defaultFont
 costBoxFontSize = 15
 costTextColor = BLACK
+costTextCenter = (costBoxPosX + costBoxWidth/2, costBoxPosY + costBoxHeight/3)
 costNumberCenterPos = (costBoxPosX + costBoxWidth / 2, costBoxPosY + costBoxHeight / 3 * 2)
-drawCostBox = DrawCostBox(game, displayText, costText, costBoxPos, costBoxSize, lineColor, lineWidth,
+
+drawCostBox = DrawCostBox(game, displayText, costText, costTextCenter, costBoxPos, costBoxSize, lineColor, lineWidth,
                           costBoxFontName, costBoxFontSize, costTextColor, costNumberCenterPos)
 
 returnText = 'CONFIRM'
@@ -93,24 +98,23 @@ redMouse = pygame.image.load('figures/RedMouse.png').convert_alpha()
 drawScreen = DrawScreen(game, drawGrids, drawAgents, drawSignal, drawTarget, drawCostBox, drawReturnBox,
                         redMouse, blueMouse, backgroundColor)
 
-checkClickedReturn = CheckClickedReturn(returnBoxPos, returnBoxSize)
-
-
-trueGoalIndex = 0
-agentsCoord = [(6, 11), (6, 1)]  # , signaler vs receiver
+# experiment manipulation
+agentsCoord = [(6, 11), (6, 1)]  # signaler vs receiver
 
 signalsCoord = [(2, 10), (10, 10)]
-signalsShape = ['square', 'square']
-signalsColor = [(255, 191, 0), (255, 191, 0)]
+signalsShape = ['triangle', 'square']
+signalsColor = [None, GREEN]
 
 targetsCoord = [(1, 1), (11, 1), (6, 6)]
-targetsColor = [(133, 222, 2), (133, 222, 2), (178, 132, 190)]
-targetsShape = ['circle', 'square', 'circle']
+targetsColor = [GREEN, PURPLE, GREEN]
+targetsShape = ['triangle', 'circle', 'circle']
+trueGoalIndex = 0
 
+checkClickedInitialContinue = CheckClickedReturn(buttonLoc, buttonSize)
+checkClickedReturn = CheckClickedReturn(returnBoxPos, returnBoxSize)
 
 runGame = RunGame(game, edgeSize, trueGoalIndex, agentsCoord, gridSize,
                  signalsColor, signalsShape, signalsCoord, targetsColor, targetsShape, targetsCoord,
                  displayGame, drawInitialScreen, drawScreen, calculateCost, drawCostBox,
                  checkEffectiveClick, checkClickedReturn, checkClickedInitialContinue, transformCoord)
 runGame()
-
