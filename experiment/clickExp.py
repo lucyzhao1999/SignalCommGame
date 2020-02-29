@@ -1,9 +1,9 @@
 import pygame
 
-from draw import DisplayGame, DrawGrids, DrawItems, DrawAgents, DrawCostBox,\
-    DrawInitialScreen, DrawScreen, DrawTextbox, DisplayText
-from calculate import calculateCost, TransformCoord
-from experiment import checkEffectiveClick, CheckClickedReturn, RunGame
+from src.draw import DisplayGame, DrawGrids, DrawItems, DrawAgents, DrawCostBox,\
+    DrawClickInitialScreen, DrawClickScreen, DrawTextbox, DisplayText, DrawShade
+from src.calculate import calculateCost, TransformCoord
+from src.experiment import checkEffectiveClick, CheckClickedReturn, RunClickGame
 
 
 BLACK = (0, 0, 0)
@@ -44,7 +44,7 @@ drawContinueButton = DrawTextbox(game, displayText, buttonText, buttonLoc,
                                   buttonFontSize, buttonTextColor)
 
 backgroundColor = WHITE
-drawInitialScreen = DrawInitialScreen(game, backgroundColor, drawInstructionText, drawContinueButton)
+drawInitialScreen = DrawClickInitialScreen(game, backgroundColor, drawInstructionText, drawContinueButton)
 
 # main display
 numberOfGrids = 11
@@ -52,14 +52,16 @@ edgeSize = 20
 gridSize = (screenHeight - edgeSize * 2) / numberOfGrids  # 60
 transformCoord = TransformCoord(gridSize, edgeSize)
 
+drawShade = DrawShade(game, transformCoord, gridSize)
+
 lineColor = BLACK
 lineWidth = 3
 shadeColor = (0, 0, 0, 50)
 shadeHeight = 5
-drawGrids = DrawGrids(game, numberOfGrids, gridSize, edgeSize, lineColor, lineWidth, shadeColor, shadeHeight)
+drawGrids = DrawGrids(game, drawShade, numberOfGrids, gridSize, edgeSize, lineColor, lineWidth, shadeHeight)
 
-blueFigure = pygame.image.load('figures/blueFigure.png')
-redFigure = pygame.image.load('figures/redFigure.png')
+blueFigure = pygame.image.load('../figures/blueFigure.png')
+redFigure = pygame.image.load('../figures/redFigure.png')
 drawAgents = DrawAgents(game, transformCoord, redFigure, blueFigure)
 
 signalsSize = 40
@@ -93,9 +95,9 @@ returnTextColor = WHITE
 drawReturnBox = DrawTextbox(game, displayText, returnText, returnBoxPos, returnBoxSize, returnBoxColor, returnBoxFontName,
                             returnBoxFontSize, returnTextColor)
 
-blueMouse = pygame.image.load('figures/BlueMouse.png').convert_alpha()
-redMouse = pygame.image.load('figures/RedMouse.png').convert_alpha()
-drawScreen = DrawScreen(game, drawGrids, drawAgents, drawSignal, drawTarget, drawCostBox, drawReturnBox,
+blueMouse = pygame.image.load('../figures/BlueMouse.png').convert_alpha()
+redMouse = pygame.image.load('../figures/RedMouse.png').convert_alpha()
+drawScreen = DrawClickScreen(game, drawGrids, drawAgents, drawSignal, drawTarget, drawCostBox, drawReturnBox,
                         redMouse, blueMouse, backgroundColor)
 
 # experiment manipulation
@@ -113,7 +115,7 @@ trueGoalIndex = 0
 checkClickedInitialContinue = CheckClickedReturn(buttonLoc, buttonSize)
 checkClickedReturn = CheckClickedReturn(returnBoxPos, returnBoxSize)
 
-runGame = RunGame(game, edgeSize, trueGoalIndex, agentsCoord, gridSize,
+runGame = RunClickGame(game, edgeSize, trueGoalIndex, agentsCoord, gridSize,
                  signalsColor, signalsShape, signalsCoord, targetsColor, targetsShape, targetsCoord,
                  displayGame, drawInitialScreen, drawScreen, calculateCost, drawCostBox,
                  checkEffectiveClick, checkClickedReturn, checkClickedInitialContinue, transformCoord)

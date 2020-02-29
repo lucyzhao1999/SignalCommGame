@@ -24,15 +24,16 @@ class DisplayGame:
 
 
 class DrawGrids:
-    def __init__(self, game, numberOfGrids, gridSize, edgeSize, lineColor, lineWidth, shadeColor, shadeHeight):
+    def __init__(self, game, drawShade, numberOfGrids, gridSize, edgeSize, lineColor, lineWidth, shadeHeight, shadeColor = BLACK):
         self.game = game
+        self.drawShade = drawShade
         self.numberOfGrids = numberOfGrids
         self.gridSize = gridSize
         self.edgeSize = edgeSize
         self.lineColor = lineColor
         self.lineWidth = lineWidth
-        self.shadeColor = shadeColor
         self.shadeHeight = shadeHeight
+        self.shadeColor = shadeColor
 
     def __call__(self, fillGray):
         for i in range(self.numberOfGrids + 1):  # draw grids
@@ -42,10 +43,10 @@ class DrawGrids:
                              (self.edgeSize + i * self.gridSize, self.edgeSize + self.numberOfGrids * self.gridSize), self.lineWidth)  # verticalLine
 
         if fillGray:
-            fillSquare = pygame.Surface((self.gridSize * self.numberOfGrids, self.gridSize * self.shadeHeight), pygame.SRCALPHA)
-            pygame.draw.rect(fillSquare, self.shadeColor, fillSquare.get_rect())
-            fillUpperLeftCorner = (self.edgeSize, self.edgeSize+ self.gridSize* self.numberOfGrids - self.gridSize * self.shadeHeight)
-            self.game.blit(fillSquare, fillUpperLeftCorner)
+            shadeUpperLeftCoord = (1, self.numberOfGrids - self.shadeHeight+ 1)
+            shadeGridWidth = self.numberOfGrids
+            shadeGridHeight = self.shadeHeight
+            self.drawShade(shadeUpperLeftCoord, self.shadeColor, shadeGridWidth, shadeGridHeight)
 
         return self.game
 
@@ -88,22 +89,6 @@ class DrawItems:
 
         return self.game
 
-
-class DrawAgents:
-    def __init__(self, game, transformCoord, redFigure, blueFigure):
-        self.transformCoord = transformCoord
-        self.game = game
-        self.redFigure = redFigure
-        self.blueFigure = blueFigure
-
-    def __call__(self, agentsCoord):
-        signalerLoc = self.transformCoord(agentsCoord[0])
-        receiverLoc = self.transformCoord(agentsCoord[1])
-
-        self.game.blit(self.redFigure, signalerLoc)
-        self.game.blit(self.blueFigure, receiverLoc)
-         
-        return self.game
 
 
 class DrawCostBox:
@@ -196,22 +181,87 @@ class DrawTextbox:
 
 
 class DrawInitialScreen:
-    def __init__(self, game, backgroundColor, drawInstructionText, drawContinueButton):
+    def __init__(self, game, backgroundColor, drawInstructionText):
         self.game = game
         self.backgroundColor = backgroundColor
         self.drawInstructionText = drawInstructionText
-        self.drawContinueButton = drawContinueButton
 
     def __call__(self):
         self.game.fill(self.backgroundColor)
         self.drawInstructionText()
-        self.drawContinueButton(underline = True)
         pygame.display.init()
 
         return self.game
 
 
 class DrawScreen:
+    def __init__(self, game, drawGrids, drawSignal, drawTarget,backgroundColor):
+        self.game = game
+        self.drawGrids = drawGrids
+        self.drawTarget = drawTarget
+        self.drawSignal = drawSignal
+        self.backgroundColor = backgroundColor
+
+    def __call__(self, currentAgent, signalsColor, signalsShape, signalsCoord,
+                 targetsColor, targetsShape, targetsCoord):
+        self.game.fill(self.backgroundColor)
+        self.drawGrids(fillGray = False if currentAgent is 'signaler' else True)
+        self.drawSignal(signalsColor, signalsShape, signalsCoord)
+        self.drawTarget(targetsColor, targetsShape, targetsCoord)
+
+        return self.game
+
+
+class DrawAgent:
+    def __init__(self, game, transformCoord, figure):
+        self.transformCoord = transformCoord
+        self.game = game
+        self.figure = figure
+
+    def __call__(self, agentsCoord):
+        location = self.transformCoord(agentsCoord)
+        self.game.blit(self.figure, location)
+
+        return self.game
+
+
+
+
+class DrawShade:
+    def __init__(self, game, transformCoord, gridSize):
+        self.game = game
+        self.transformCoord = transformCoord
+        self.gridSize = gridSize
+
+    def __call__(self, shadeUpperLeftCoord, originalColor, shadeGridWidth = 1, shadeGridHeight = 1, shadeAlpha = 50):
+        shadeColor = originalColor + (shadeAlpha,)
+        shadeWidthPix = shadeGridWidth* self.gridSize
+        shadeHeightPix = shadeGridHeight* self.gridSize
+        fillSquare = pygame.Surface((shadeWidthPix, shadeHeightPix), pygame.SRCALPHA)
+        pygame.draw.rect(fillSquare, shadeColor, fillSquare.get_rect())
+        shadePos = self.transformCoord(shadeUpperLeftCoord)
+        self.game.blit(fillSquare, shadePos)
+
+
+
+class DrawAgents:
+    def __init__(self, game, transformCoord, redFigure, blueFigure):
+        self.transformCoord = transformCoord
+        self.game = game
+        self.redFigure = redFigure
+        self.blueFigure = blueFigure
+
+    def __call__(self, agentsCoord):
+        signalerLoc = self.transformCoord(agentsCoord[0])
+        receiverLoc = self.transformCoord(agentsCoord[1])
+
+        self.game.blit(self.redFigure, signalerLoc)
+        self.game.blit(self.blueFigure, receiverLoc)
+
+        return self.game
+
+
+class DrawClickScreen:
     def __init__(self, game, drawGrids, drawAgents, drawSignal, drawTarget, drawCostBox,drawReturnBox,
                  redMouse, blueMouse, backgroundColor):
         self.game = game
@@ -242,3 +292,18 @@ class DrawScreen:
 
         return self.game
 
+
+class DrawClickInitialScreen:
+    def __init__(self, game, backgroundColor, drawInstructionText, drawContinueButton):
+        self.game = game
+        self.backgroundColor = backgroundColor
+        self.drawInstructionText = drawInstructionText
+        self.drawContinueButton = drawContinueButton
+
+    def __call__(self):
+        self.game.fill(self.backgroundColor)
+        self.drawInstructionText()
+        self.drawContinueButton(underline = True)
+        pygame.display.init()
+
+        return self.game

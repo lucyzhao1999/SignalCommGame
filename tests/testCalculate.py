@@ -2,7 +2,7 @@ import sys
 sys.path.append('..')
 import unittest
 from ddt import ddt, data, unpack
-from calculate import calculateCost, TransformCoord
+from src.calculate import calculateCost, TransformCoord
 
 @ddt
 class TestEnvironment(unittest.TestCase):

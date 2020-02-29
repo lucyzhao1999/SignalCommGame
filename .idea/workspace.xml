@@ -2,9 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="70c88b45-b161-4b7b-af06-c7c4916b2b72" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/calculate.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/experiment.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/SignalCommGame.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/SignalCommGame.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/draw.py" beforeDir="false" afterPath="$PROJECT_DIR$/draw.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/calculate.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/draw.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/draw.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/experiment.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/experiment/clickExp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/testCalculate.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/testCalculate.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,10 +21,82 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main.py">
+        <entry file="file://$PROJECT_DIR$/experiment/clickExp.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="271">
+              <caret line="60" column="51" lean-forward="true" selection-start-line="60" selection-start-column="51" selection-end-line="60" selection-end-column="51" />
+              <folding>
+                <element signature="e#0#13#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/draw.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="62">
+              <caret line="26" column="38" selection-start-line="26" selection-start-column="29" selection-end-line="26" selection-end-column="38" />
+              <folding>
+                <element signature="e#80#698#0" />
+                <element signature="e#2200#3977#0" />
+                <element signature="e#4529#5996#0" />
+                <element signature="e#6022#7219#0" />
+                <element signature="e#7245#8245#0" />
+                <element signature="e#8277#8751#0" />
+                <element signature="e#9523#10015#0" />
+                <element signature="e#10191#10716#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_40.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="80">
+              <caret line="203" selection-start-line="203" selection-end-line="203" />
+              <folding>
+                <element signature="e#20#10265#0" />
+                <element signature="e#2178#2664#0" />
+                <element signature="e#6119#6220#0" />
+                <element signature="e#6871#6878#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/experiment.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="280">
+              <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+              <folding>
+                <element signature="e#10328#10920#0" />
+                <element signature="e#17668#18056#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/calculate.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="180">
-              <caret line="9" column="23" lean-forward="true" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="23" />
+              <caret line="9" selection-start-line="9" selection-end-line="9" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+                <element signature="e#808#1388#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/experiment/signalerExp.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="222">
+              <caret line="86" selection-start-line="86" selection-end-line="87" selection-end-column="57" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -27,31 +105,12 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/draw.py">
+        <entry file="file://$PROJECT_DIR$/experiment/receiverExp.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="436">
-              <caret line="241" column="31" selection-start-line="241" selection-start-column="31" selection-end-line="241" selection-end-column="31" />
+            <state relative-caret-position="356">
+              <caret line="91" lean-forward="true" selection-start-line="91" selection-end-line="91" />
               <folding>
-                <element signature="e#39#399#0" />
-                <element signature="e#722#2085#0" />
-                <element signature="e#2200#3854#0" />
-                <element signature="e#3310#3811#0" />
-                <element signature="e#3837#5300#0" />
-                <element signature="e#6062#7247#0" />
-                <element signature="e#5326#6326#0" />
-                <element signature="e#8327#8801#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/experiment.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="460">
-              <caret line="165" column="20" lean-forward="true" selection-start-line="165" selection-start-column="20" selection-end-line="165" selection-end-column="43" />
-              <folding>
-                <element signature="e#1#11#0" expanded="true" />
+                <element signature="e#0#13#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -62,36 +121,43 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="Python Unit Test" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>return</find>
-      <find>textbox</find>
-      <find>ChangeScoreText</find>
-      <find>str</find>
-      <find>scorebox</find>
-      <find>displaySplitText</find>
       <find>screenWidth</find>
       <find>backgroundColor</find>
       <find>lineColor</find>
       <find>lineWidth</find>
-      <find>edgeSize</find>
       <find>signalerStartTime</find>
       <find>receiverFinalSelection</find>
       <find>receiverResponseTime</find>
-      <find>gridSize</find>
       <find>button</find>
       <find>agents</find>
       <find>pygame.display.flip()</find>
       <find>game</find>
       <find>mouse</find>
-      <find>red</find>
       <find>cost</find>
       <find>blue</find>
+      <find>keys</find>
+      <find>red</find>
+      <find>grid</find>
+      <find>shade</find>
+      <find>signalerColor</find>
+      <find>transformCoord</find>
+      <find>edgeSize</find>
+      <find>gridSize</find>
+      <find>signalsColor</find>
+      <find>receiver</find>
+      <find>receiverColor</find>
+      <find>currentAgent</find>
+      <find>signalerX</find>
+      <find>stayWithinBoundary</find>
+      <find>drawCostBox</find>
+      <find>signalerCoord</find>
     </findStrings>
     <replaceStrings>
       <replace>cost</replace>
@@ -101,6 +167,9 @@
       <replace>textb</replace>
       <replace>self.gridSize</replace>
       <replace />
+      <replace>currentY</replace>
+      <replace>currentX</replace>
+      <replace>drawReceiverCostBox</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -115,15 +184,23 @@
         <option value="$PROJECT_DIR$/exp.py" />
         <option value="$PROJECT_DIR$/testCalculate.py" />
         <option value="$PROJECT_DIR$/tests/testCalculate.py" />
+        <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_40.py" />
+        <option value="$PROJECT_DIR$/drawReceiver.py" />
         <option value="$PROJECT_DIR$/calculate.py" />
+        <option value="$PROJECT_DIR$/receiverExp.py" />
+        <option value="$PROJECT_DIR$/signalerExp.py" />
         <option value="$PROJECT_DIR$/experiment.py" />
+        <option value="$PROJECT_DIR$/draw.py" />
+        <option value="$PROJECT_DIR$/draw.py" />
         <option value="$PROJECT_DIR$/main.py" />
-        <option value="$PROJECT_DIR$/draw.py" />
-        <option value="$PROJECT_DIR$/draw.py" />
+        <option value="$PROJECT_DIR$/src/experiment.py" />
+        <option value="$PROJECT_DIR$/clickExp.py" />
+        <option value="$PROJECT_DIR$/experiment/signalerExp.py" />
+        <option value="$PROJECT_DIR$/experiment/receiverExp.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
+  <component name="ProjectFrameBounds" fullScreen="true">
     <option name="x" value="525" />
     <option name="width" value="915" />
     <option name="height" value="900" />
@@ -139,11 +216,6 @@
             <path>
               <item name="SignalCommGame" type="b2602c69:ProjectViewProjectNode" />
               <item name="SignalCommGame" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SignalCommGame" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SignalCommGame" type="462c0819:PsiDirectoryNode" />
-              <item name="tests" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -170,6 +242,8 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/experiment" />
+      <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/tests" />
       <recent name="$PROJECT_DIR$/figures" />
     </key>
@@ -187,7 +261,7 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="receiver" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="SignalCommGame" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -195,12 +269,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/experiment" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/experiment/clickExp.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -211,7 +285,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.main" />
+        <item itemvalue="Python.receiver" />
       </list>
     </recent_temporary>
   </component>
@@ -229,18 +303,20 @@
       <workItem from="1579656508856" duration="766000" />
       <workItem from="1579992888905" duration="3000" />
       <workItem from="1580432870143" duration="1696000" />
-      <workItem from="1582071227440" duration="25623000" />
+      <workItem from="1582071227440" duration="26663000" />
+      <workItem from="1582921658144" duration="99000" />
+      <workItem from="1582921785889" duration="20220000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47938000" />
+    <option name="totallyTimeSpent" value="69297000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13976945" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18659942" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -251,10 +327,10 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.3292232" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.1270037" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.1565968" />
       <window_info anchor="bottom" id="Python Console" order="12" weight="0.3292232" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -269,7 +345,8 @@
     <option name="version" value="1" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/SignalCommGame$exp.coverage" NAME="main Coverage Results" MODIFIED="1582656811579" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/SignalCommGame$main.coverage" NAME="receiver Coverage Results" MODIFIED="1582998609459" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/experiment" />
+    <SUITE FILE_PATH="coverage/SignalCommGame$exp.coverage" NAME="main Coverage Results" MODIFIED="1582657087372" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/signalExperiment$exp.coverage" NAME="exp Coverage Results" MODIFIED="1579656199291" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="editorHistoryManager">
@@ -291,16 +368,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/calculate.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="21" selection-start-line="21" selection-end-line="21" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tests/testCalculate.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -308,39 +375,95 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_40.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="203" selection-start-line="203" selection-end-line="203" />
+          <folding>
+            <element signature="e#20#10265#0" />
+            <element signature="e#2178#2664#0" />
+            <element signature="e#6119#6220#0" />
+            <element signature="e#6871#6878#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/experiment.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="331">
+          <caret line="344" selection-start-line="344" selection-end-line="346" selection-end-column="37" />
+          <folding>
+            <element signature="e#10328#10920#0" />
+            <element signature="e#17668#18056#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculate.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
-          <caret line="9" column="23" lean-forward="true" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="23" />
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#808#1388#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/draw.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="62">
+          <caret line="26" column="38" selection-start-line="26" selection-start-column="29" selection-end-line="26" selection-end-column="38" />
+          <folding>
+            <element signature="e#80#698#0" />
+            <element signature="e#2200#3977#0" />
+            <element signature="e#4529#5996#0" />
+            <element signature="e#6022#7219#0" />
+            <element signature="e#7245#8245#0" />
+            <element signature="e#8277#8751#0" />
+            <element signature="e#9523#10015#0" />
+            <element signature="e#10191#10716#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/experiment/clickExp.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="271">
+          <caret line="60" column="51" lean-forward="true" selection-start-line="60" selection-start-column="51" selection-end-line="60" selection-end-column="51" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/experiment.py">
+    <entry file="file://$PROJECT_DIR$/src/experiment.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
-          <caret line="165" column="20" lean-forward="true" selection-start-line="165" selection-start-column="20" selection-end-line="165" selection-end-column="43" />
+        <state relative-caret-position="280">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
           <folding>
-            <element signature="e#1#11#0" expanded="true" />
+            <element signature="e#10328#10920#0" />
+            <element signature="e#17668#18056#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/draw.py">
+    <entry file="file://$PROJECT_DIR$/experiment/signalerExp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="436">
-          <caret line="241" column="31" selection-start-line="241" selection-start-column="31" selection-end-line="241" selection-end-column="31" />
+        <state relative-caret-position="222">
+          <caret line="86" selection-start-line="86" selection-end-line="87" selection-end-column="57" />
           <folding>
-            <element signature="e#39#399#0" />
-            <element signature="e#722#2085#0" />
-            <element signature="e#2200#3854#0" />
-            <element signature="e#3310#3811#0" />
-            <element signature="e#3837#5300#0" />
-            <element signature="e#6062#7247#0" />
-            <element signature="e#5326#6326#0" />
-            <element signature="e#8327#8801#0" />
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/experiment/receiverExp.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="356">
+          <caret line="91" lean-forward="true" selection-start-line="91" selection-end-line="91" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
           </folding>
         </state>
       </provider>
