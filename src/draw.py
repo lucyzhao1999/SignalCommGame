@@ -19,8 +19,91 @@ class DisplayGame:
             game = pygame.display.set_mode((self.screenWidth, self.screenHeight))
         pygame.display.init()
         pygame.display.set_caption(self.caption)
-        pygame.fastevent.init()
         return game
+
+
+class DisplayText:
+    def __init__(self, game, numCharPerLine, spacingFontSizeRatio):
+        self.game = game
+        self.numCharPerLine = numCharPerLine
+        self.spacingFontSizeRatio = spacingFontSizeRatio
+
+    def __call__(self, text, fontName, fontSize, fontColor, firstLineCenter, underline = False):
+        numLines = int(len(text) / self.numCharPerLine) + 1
+        spacing = fontSize * self.spacingFontSizeRatio
+        lineSeq = [text[currentLine * self.numCharPerLine: (currentLine + 1) * self.numCharPerLine] for currentLine in
+                   range(numLines)]
+
+        font = pygame.font.Font(fontName, fontSize)
+        if underline:
+            font.set_underline(True)
+
+        antialias = True # prevent from being jaggy
+        lineSurfaces = [font.render(line, antialias, fontColor) for line in lineSeq]
+
+        firstLineCenterX, firstLineCenterY = firstLineCenter
+        for lineNumber in range(len(lineSurfaces)):
+            lineSurface = lineSurfaces[lineNumber]
+            lineCenter = (firstLineCenterX, firstLineCenterY + spacing * lineNumber)
+            lineRect = lineSurface.get_rect(center=lineCenter)
+            self.game.blit(lineSurface, lineRect)
+
+        return self.game
+
+
+class DrawTextbox:
+    def __init__(self, game, displayText, text, textboxPos, textboxSize, textboxColor, textboxFontName, textboxFontSize,
+                 textboxTextColor):
+        self.game = game
+        self.displayText = displayText
+        self.text = text
+        self.textboxPos = textboxPos
+        self.textboxSize = textboxSize
+        self.textboxColor = textboxColor
+        self.textboxFontName = textboxFontName
+        self.textboxFontSize = textboxFontSize
+        self.textboxTextColor = textboxTextColor
+
+    def __call__(self, underline=False):
+        pygame.draw.rect(self.game, self.textboxColor, self.textboxPos + self.textboxSize)
+        textboxX, textboxY = self.textboxPos
+        textboxWidth, textboxHeight = self.textboxSize
+        textCenter = (textboxX + textboxWidth / 2, textboxY + textboxHeight / 2)
+
+        self.displayText(self.text, self.textboxFontName, self.textboxFontSize,
+                         self.textboxTextColor, textCenter, underline)
+
+        return self.game
+
+
+class DrawInitialScreen:
+    def __init__(self, game, backgroundColor, drawInstructionText):
+        self.game = game
+        self.backgroundColor = backgroundColor
+        self.drawInstructionText = drawInstructionText
+
+    def __call__(self):
+        self.game.fill(self.backgroundColor)
+        self.drawInstructionText()
+        pygame.display.init()
+
+        return self.game
+
+
+class DrawShade:
+    def __init__(self, game, transformCoord, gridSize):
+        self.game = game
+        self.transformCoord = transformCoord
+        self.gridSize = gridSize
+
+    def __call__(self, shadeUpperLeftCoord, originalColor, shadeGridWidth = 1, shadeGridHeight = 1, shadeAlpha = 50):
+        shadeColor = originalColor + (shadeAlpha,)
+        shadeWidthPix = shadeGridWidth* self.gridSize
+        shadeHeightPix = shadeGridHeight* self.gridSize
+        fillSquare = pygame.Surface((shadeWidthPix, shadeHeightPix), pygame.SRCALPHA)
+        pygame.draw.rect(fillSquare, shadeColor, fillSquare.get_rect())
+        shadePos = self.transformCoord(shadeUpperLeftCoord)
+        self.game.blit(fillSquare, shadePos)
 
 
 class DrawGrids:
@@ -90,7 +173,6 @@ class DrawItems:
         return self.game
 
 
-
 class DrawCostBox:
     def __init__(self, game, displayText, costText, costTextCenter, costBoxPos, costBoxSize,
                  lineColor, lineWidth, fontName, fontSize,
@@ -113,7 +195,7 @@ class DrawCostBox:
         costBoxWidth, costBoxHeight = self.costBoxSize
 
         coverBoxPos = (costBoxX + self.lineWidth, costBoxY + self.lineWidth)
-        coverBoxSize = (costBoxWidth - self.lineWidth * 2,costBoxHeight - self.lineWidth * 2)
+        coverBoxSize = (costBoxWidth - self.lineWidth * 2, costBoxHeight - self.lineWidth * 2)
 
         pygame.draw.rect(self.game, WHITE, coverBoxPos+ coverBoxSize) # cover old info by a new white box
         pygame.draw.rect(self.game, self.lineColor, self.costBoxPos + self.costBoxSize, self.lineWidth)
@@ -126,70 +208,15 @@ class DrawCostBox:
         return self.game
 
 
-class DisplayText:
-    def __init__(self, game, numCharPerLine, spacingFontSizeRatio):
+class DrawAgent:
+    def __init__(self, game, transformCoord, figure):
+        self.transformCoord = transformCoord
         self.game = game
-        self.numCharPerLine = numCharPerLine
-        self.spacingFontSizeRatio = spacingFontSizeRatio
+        self.figure = figure
 
-    def __call__(self, text, fontName, fontSize, fontColor, firstLineCenter, underline = False):
-        numLines = int(len(text) / self.numCharPerLine) + 1
-        spacing = fontSize * self.spacingFontSizeRatio
-        lineSeq = [text[currentLine * self.numCharPerLine: (currentLine + 1) * self.numCharPerLine] for currentLine in
-                   range(numLines)]
-
-        font = pygame.font.Font(fontName, fontSize)
-        if underline:
-            font.set_underline(True)
-
-        antialias = True # prevent from being jaggy
-        lineSurfaces = [font.render(line, antialias, fontColor) for line in lineSeq]
-
-        firstLineCenterX, firstLineCenterY = firstLineCenter
-        for lineNumber in range(len(lineSurfaces)):
-            lineSurface = lineSurfaces[lineNumber]
-            lineCenter = (firstLineCenterX, firstLineCenterY + spacing * lineNumber)
-            lineRect = lineSurface.get_rect(center=lineCenter)
-            self.game.blit(lineSurface, lineRect)
-
-        return self.game
-
-
-class DrawTextbox:
-    def __init__(self, game, displayText, text, textboxPos, textboxSize, textboxColor, textboxFontName, textboxFontSize,
-                 textboxTextColor):
-        self.game = game
-        self.displayText = displayText
-        self.text = text
-        self.textboxPos = textboxPos
-        self.textboxSize = textboxSize
-        self.textboxColor = textboxColor
-        self.textboxFontName = textboxFontName
-        self.textboxFontSize = textboxFontSize
-        self.textboxTextColor = textboxTextColor
-
-    def __call__(self, underline = False):
-        pygame.draw.rect(self.game, self.textboxColor, self.textboxPos + self.textboxSize)
-        textboxX, textboxY = self.textboxPos
-        textboxWidth, textboxHeight = self.textboxSize
-        textCenter = (textboxX + textboxWidth/2, textboxY + textboxHeight/2)
-
-        self.displayText(self.text, self.textboxFontName, self.textboxFontSize,
-                         self.textboxTextColor, textCenter, underline)
-         
-        return self.game
-
-
-class DrawInitialScreen:
-    def __init__(self, game, backgroundColor, drawInstructionText):
-        self.game = game
-        self.backgroundColor = backgroundColor
-        self.drawInstructionText = drawInstructionText
-
-    def __call__(self):
-        self.game.fill(self.backgroundColor)
-        self.drawInstructionText()
-        pygame.display.init()
+    def __call__(self, agentsCoord):
+        location = self.transformCoord(agentsCoord)
+        self.game.blit(self.figure, location)
 
         return self.game
 
@@ -211,36 +238,6 @@ class DrawScreen:
 
         return self.game
 
-
-class DrawAgent:
-    def __init__(self, game, transformCoord, figure):
-        self.transformCoord = transformCoord
-        self.game = game
-        self.figure = figure
-
-    def __call__(self, agentsCoord):
-        location = self.transformCoord(agentsCoord)
-        self.game.blit(self.figure, location)
-
-        return self.game
-
-
-
-
-class DrawShade:
-    def __init__(self, game, transformCoord, gridSize):
-        self.game = game
-        self.transformCoord = transformCoord
-        self.gridSize = gridSize
-
-    def __call__(self, shadeUpperLeftCoord, originalColor, shadeGridWidth = 1, shadeGridHeight = 1, shadeAlpha = 50):
-        shadeColor = originalColor + (shadeAlpha,)
-        shadeWidthPix = shadeGridWidth* self.gridSize
-        shadeHeightPix = shadeGridHeight* self.gridSize
-        fillSquare = pygame.Surface((shadeWidthPix, shadeHeightPix), pygame.SRCALPHA)
-        pygame.draw.rect(fillSquare, shadeColor, fillSquare.get_rect())
-        shadePos = self.transformCoord(shadeUpperLeftCoord)
-        self.game.blit(fillSquare, shadePos)
 
 
 

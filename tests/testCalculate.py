@@ -13,8 +13,9 @@ class TestEnvironment(unittest.TestCase):
 
     @data(
         ((3, 4),(3, 4), 0),
-        ((1, 1), (2,2), 1.41),
-        ((1, 3), (1,5), 2)
+        ((1, 1), (2,2), 2),
+        ((1, 3), (1,5), 2),
+        ((2, 2), (1, 1), 2)
     )
     @unpack
     def testCalculateCost(self, agentPos, agentChoice, trueCost):

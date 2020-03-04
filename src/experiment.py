@@ -443,7 +443,7 @@ class RunSignalerGame:
         waitForInstruction = True
         fpsClock = pygame.time.Clock()
 
-        currentAgent = 'signaler'
+
 
         signalerFrame = 0
         receiverFrame = 0
@@ -451,10 +451,10 @@ class RunSignalerGame:
         trueGoalLoc = self.targetsCoord[self.trueGoalIndex]
         signalerActionOptions = self.targetsCoord + self.signalsCoord
 
-
         signalerRound = True
         signalerCost = 0
         receiverWaitIndex = 0
+
         while waitForInstruction:
             fpsClock.tick(self.FPS)
             self.drawInitialScreen()
@@ -475,6 +475,7 @@ class RunSignalerGame:
             fpsClock.tick(self.FPS)
 
             if signalerRound:
+                currentAgent = 'signaler'
                 self.drawScreen(currentAgent, self.signalsColor, self.signalsShape,
                                 self.signalsCoord, self.targetsColor, self.targetsShape, self.targetsCoord)
                 self.drawReceiver(receiverInitialCoord)

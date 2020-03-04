@@ -1,5 +1,8 @@
 import pygame
+import sys
+import os
 
+sys.path.append(os.path.join('..'))
 from src.draw import DisplayGame, DrawGrids, DrawItems, DrawAgent, DrawCostBox, \
     DrawInitialScreen, DrawScreen, DrawTextbox, DisplayText, DrawShade
 
@@ -115,6 +118,6 @@ runGame = RunSignalerGame(game, trueGoalIndex, agentsCoord,
                 drawSignalerCostBox, drawReceiverCostBox,
                  moveAgent, drawShade)
 
-receiverTrajectory = [(6, 1), (6,2), (6,3), (7, 3)]
+receiverTrajectory = [(6,1), (5,1), (4,1), (4,2), (3,2), (2,2), (1,2), (1,1)]
 runGame(receiverTrajectory)
 

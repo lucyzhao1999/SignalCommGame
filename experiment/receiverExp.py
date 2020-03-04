@@ -1,4 +1,7 @@
 import pygame
+import sys
+import os
+sys.path.append(os.path.join('..'))
 
 from src.draw import DisplayGame, DrawGrids, DrawItems, DrawAgent, DrawCostBox, \
     DrawInitialScreen, DrawScreen, DrawTextbox, DisplayText, DrawShade
@@ -114,6 +117,8 @@ runGame = RunReceiverGame(game, trueGoalIndex, agentsCoord,
                           calculateCost, drawSignalerCostBox, drawReceiverCostBox,
                  moveAgent, drawShade)
 
-siganlerTrajectory = [(6, 11), (6,10), (6,9), (6, 8), (6,7), (6,6)]
-runGame(siganlerTrajectory)
+signalerTrajectory = [(6, 11), (6,10), (6,9), (6, 8), (6,7), (6,6), (5, 6), (4, 6), (5, 6), (6,6)]
+runGame(signalerTrajectory)
 
+# cost function
+# restrict the movement of the receiver
